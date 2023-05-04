@@ -1,0 +1,33 @@
+@import "../../styles";
+
+.wrapper {
+  @include center();
+  min-height: 100vh;
+  & > .container {
+    padding: 5rem;
+    background-color: $light;
+    @include radius(1rem);
+    @include openAnimation();
+
+    & > button {
+      @include button();
+      @include flex(row, stretch, flex-start);
+      padding: 0;
+      @include border($link);
+      background-color: $link;
+      & > span {
+        @include center();
+        padding: 1.2rem;
+        &.icon {
+          background-color: $white;
+          @include radius(0.5rem, false, false);
+          @include font(2rem);
+        }
+        &.text {
+          @include text($light, $transform: uppercase);
+          @include font($weight: 500);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,327 @@
+@import "../../styles";
+
+.bgWrapper {
+  @include position(fixed, 0, 0, 0, 0);
+  z-index: 101;
+  display: none;
+  &.open {
+    display: block;
+  }
+}
+
+.menuContainer {
+  position: absolute;
+  top: var(--t);
+  left: var(--l);
+  background-color: $white;
+  width: 15rem;
+  @include shadow(rgba(0, 0, 0, 0.2));
+  padding: 1.2rem 0rem;
+  z-index: 102;
+  border-radius: 0.5rem;
+  transform: scale(0);
+  transition: transform 0.2s;
+  transform-origin: 0 0;
+  &.open {
+    transform: scale(1);
+  }
+  & > button {
+    @include button();
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    padding: 0.8rem 2.4rem;
+
+    &:hover {
+      background-color: $light;
+    }
+  }
+}
+
+.sidebarContainer {
+  & > .top {
+    @include flex(row, center, flex-start, 1.6rem);
+    padding: 1.2rem 2.4rem;
+    & > .left {
+      @include center();
+      & > button {
+        @include center();
+        @include button();
+        @include radius(50%);
+        width: 3rem;
+        aspect-ratio: 1/1;
+        @include font(2.5rem);
+        padding: 0.2rem;
+        background: transparent;
+        border: none;
+        color: $web5;
+        &:hover {
+          background-color: $light;
+        }
+      }
+    }
+    & > .right {
+      position: relative;
+      flex: 1;
+      & > form {
+        & > input {
+          border: none;
+          outline: none;
+          background-color: $light;
+          @include radius(1000rem);
+          padding: 0.8rem 1.6rem 0.8rem 4.2rem;
+          width: 100%;
+        }
+      }
+      & > span {
+        @include position(absolute, 50%, 2rem);
+        @include font(1.6rem);
+        transform: translate(0rem, -50%);
+        color: $web5;
+        @include center();
+        &.loading {
+          animation: rotate1 0.2s ease-in-out infinite;
+        }
+      }
+    }
+  }
+  & > .bottom {
+    padding: 1.2rem 0rem;
+    user-select: none;
+    @include flex(column, stretch, flex-start);
+    & > .item {
+      @include flex(row, center, flex-start, 1.6rem);
+      padding: 0.8rem 2.4rem;
+      cursor: pointer;
+      &:hover {
+        background-color: $light;
+      }
+      & > .left {
+        & > img {
+          @include avatar(5rem);
+          &.error {
+            display: none;
+          }
+        }
+
+        & > p {
+          background-color: $web1;
+          @include avatar(5rem);
+          @include center();
+          font-size: 1.6rem;
+          color: $light;
+          display: none;
+        }
+      }
+      & > .right {
+        flex: 1;
+        @include flex(column, stretch, space-between);
+        & > p {
+          @include font(1.4rem, 500);
+          @include text($web4);
+        }
+        & > span {
+          @include font(1.2rem, 400);
+        }
+      }
+    }
+
+    & > p {
+      padding: 1.2rem 2.4rem;
+      @include font(1.2rem, 500);
+      @include text($dark, center);
+    }
+  }
+}
+
+@keyframes rotate1 {
+  0% {
+    transform: translate(0rem, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(0rem, -50%) rotate(360deg);
+  }
+}
+
+.chatContainer {
+  width: 70%;
+  margin: 0 auto;
+  position: relative;
+  @include desktop {
+    width: 85%;
+  }
+  & > .mobileTop {
+    display: none;
+    @include l-desktop {
+      @include flex(row, center, space-between);
+      width: 100%;
+      @include position(fixed, 0rem, 0rem);
+      z-index: 99;
+      background-color: $white;
+      padding: 1.2rem 2.4rem;
+
+      & > button {
+        @include button();
+        background-color: transparent;
+        border: none;
+        @include font(2.5rem);
+        color: $web5;
+      }
+    }
+  }
+
+  & > .input {
+    @include position(fixed, $left: 395px, $bottom: 2.4rem);
+    z-index: 99;
+    width: 100%;
+    @include l-desktop {
+      left: 0;
+    }
+    & > .wrapper {
+      width: calc(100% - 395px);
+      @include l-desktop {
+        width: 100%;
+      }
+
+      & > form {
+        width: calc(70% - 4.8rem);
+        margin: 0 auto;
+        position: relative;
+        @include desktop {
+          width: calc(85% - 4.8rem);
+        }
+        & > input {
+          padding: 0.8rem 5.2rem 0.8rem 1.6rem;
+          border-radius: 0.5rem;
+          height: 5rem;
+          border: none;
+          outline: none;
+          display: block;
+          width: 100%;
+        }
+
+        & > button {
+          @include position(absolute, 50%, $right: 0rem);
+          @include button();
+          @include center();
+          transform: translateY(-50%);
+          background-color: transparent;
+          border: none;
+          padding: 0.8rem 1.6rem;
+          @include font(2rem);
+          color: $web5;
+          height: 4rem;
+
+          &.loading {
+            animation: rotate 0.2s ease-in-out infinite;
+          }
+        }
+      }
+    }
+  }
+
+  & > .messages {
+    padding: 2.4rem 2.4rem 9rem;
+    min-height: 100vh;
+    @include flex(column, stretch, flex-end, 0.8rem);
+    @include l-desktop {
+      padding-top: 7.4rem;
+    }
+    & > .message {
+      @include flex(row, center, flex-start);
+      & > p {
+        background-color: $white;
+        max-width: 60%;
+        min-width: 6.1rem;
+        padding: 0.8rem 1.6rem 2.8rem;
+        @include radius(1.2rem);
+        @include font(1.2rem);
+        position: relative;
+        & > .time {
+          @include position(absolute, $right: 1.6rem, $bottom: 0.8rem);
+          @include text($dark);
+          @include font(1rem);
+        }
+      }
+      &.me {
+        justify-content: flex-end;
+        & > p {
+          background-color: $web2;
+          & > .time {
+            @include text($white);
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: translateY(-50%) rotate(0);
+  }
+  100% {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+.container {
+  min-height: 100vh;
+  width: 100%;
+  @include l-desktop {
+    overflow: hidden;
+    &.open {
+      & > .sidebar {
+        left: -100%;
+      }
+      & > .chat {
+        left: 0;
+      }
+    }
+  }
+  & > .sidebar {
+    width: 100%;
+    max-width: 395px;
+    @include position(fixed, 0rem, 0rem);
+    height: 100vh;
+    overflow-y: auto;
+    background-color: $white;
+    z-index: 99;
+    transition: left 0.25s;
+    @include l-desktop {
+      max-width: unset;
+    }
+  }
+  & > .chat {
+    padding-left: 395px;
+    min-height: 100vh;
+    background: url("bg.svg"), $web1;
+    background-repeat: no-repeat;
+    background-origin: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    transition: left 0.25s;
+    @include l-desktop {
+      padding-left: 0;
+      @include position(fixed, 0rem, 100%);
+      z-index: 100;
+      width: 100%;
+      overflow-y: auto;
+      height: 100vh;
+    }
+
+    & > .center {
+      @include center();
+      height: 100vh;
+      & > p {
+        @include text($web4, $transform: uppercase);
+        color: $dark;
+        @include font(2rem, 600);
+        background-color: $white;
+        @include shadow(rgba(0, 0, 0, 0.1));
+        padding: 2.4rem 3.6rem;
+        @include radius(1rem);
+      }
+    }
+  }
+}
